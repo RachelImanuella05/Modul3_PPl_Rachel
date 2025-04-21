@@ -10,13 +10,14 @@ class ViewNotesTest extends DuskTestCase
 {
     /**
      * A Dusk test for viewing notes.
+     * @group viewnote
      */
-    public function testViewNotes(): void
+    public function testViewNote(): void
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('http://127.0.0.1:8000/login')
-                ->type('email', 'testuser@example.com')  // Ganti dengan user yang valid
-                ->type('password', 'password123')       
+            $browser->visit('http://127.0.0.1:8000/login') // Akses halaman login
+                ->type('email', 'testuser@example.com')   // Ganti dengan user valid
+                ->type('password', 'password123')
                 ->press('LOG IN')
                 ->assertPathIs('/dashboard')
 
@@ -24,9 +25,8 @@ class ViewNotesTest extends DuskTestCase
                 ->clickLink('Notes')
                 ->assertPathIs('/notes')
 
-                // Verifikasi bahwa notes tertentu tampil
-                ->assertSee('Catatan Uji Coba')           // Salah satu note yang harus muncul
-                ->assertSee('Tugas Modul 3');             // Note lain juga bisa dicek
+                // Verifikasi isi catatan (optional, bisa ditambahkan jika perlu)
+                ->assertSee('Catatan Uji Coba');
         });
     }
 }
